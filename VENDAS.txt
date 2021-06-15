@@ -31,3 +31,31 @@ cidade VARCHAR(30),
 uf CHAR(2),
 CONSTRAINT PK_CLIENTE PRIMARY KEY(codigo_cliente )
 );
+
+CREATE TABLE VENDA(
+num_venda NUMBER,
+data_venda DATE,
+codigo_cliente NUMBER,
+data_entrega DATE,
+CONSTRAINT PK_VENDA PRIMARY KEY(num_venda ),
+CONSTRAINT FK_VENDA_CLIENTE FOREIGN KEY (codigo_cliente ) REFERENCES CLIENTE
+);
+
+CREATE TABLE PRODUTO(
+codigo_produto NUMBER,
+descricao_produto VARCHAR2(30),
+valor_produto NUMBER(6,2),
+saldo NUMBER(4),
+CONSTRAINT PK_PRODUTO PRIMARY KEY(codigo_produto)
+);
+
+CREATE TABLE ITEM_VENDA(
+num_item NUMBER,
+num_venda NUMBER,
+codigo_produto NUMBER,
+qtd_venda NUMBER,
+valor_produto NUMBER(6,2),
+CONSTRAINT PK_ITEM_VENDA PRIMARY KEY(num_item, num_venda),
+CONSTRAINT FK_ITEM_VENDA_VENDA FOREIGN KEY (num_venda) REFERENCES VENDA,
+CONSTRAINT FK_ITEM_VENDA_VENDA_COD FOREIGN KEY (codigo_produto) REFERENCES VENDA
+);
