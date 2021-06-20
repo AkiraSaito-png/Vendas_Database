@@ -70,4 +70,17 @@ b)
 SELECT MAX(valor_produto) FROM PRODUTO;
 
 c)
-SELECT COUNT(saldo) QTD FROM PRODUTO;
+SELECT COUNT(qtd_vendida) QTD FROM ITEM_VENDA;
+
+3) 
+CREATE TRIGGER ITEMVENDA
+AFTER INSERT ON ITEM_VENDA
+FOR EACH ROW
+BEGIN
+UPDATE PRODUTO SET saldo = :old.saldo - :new.saldo WERE codigo_produto = :old.codigo_produto;
+END;
+
+4) 
+SELECT nome, CPF_CNPJ FROM CLIENTE, SUBSTR(CPF_CNPJ, 1, 3) || '.' ||
+SUBSTR(CPF_CNPJ, 4,3) || '.' || SUBSTR(CPF_CNPJ, 7,3)
+|| '-' || SUBSTR(CPF_CNPJ, 10, 2) CPF FROM CLIENTE;
